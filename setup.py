@@ -7,7 +7,7 @@ from sys import path
 srcdir = join(dirname(abspath(__file__)), "src/")
 path.insert(0, srcdir)
 
-from livestreamer_curses import config
+from streamlink_curses import config
 
 setup(name="streamlink-curses",
       version=config.VERSION,

@@ -11,11 +11,11 @@ CHECK_ONLINE_INTERVAL = 0
 STREAMLINK_COMMANDS = ["streamlink"]
 
 RC_DEFAULT_DIR  = (os.environ.get('XDG_CONFIG_HOME') or
-                  os.path.expanduser(u'~/.config/livestreamer-curses'))
-RC_DEFAULT_PATH = os.path.join(RC_DEFAULT_DIR, u'livestreamer-cursesrc')
+                  os.path.expanduser(u'~/.config/streamlink-curses'))
+RC_DEFAULT_PATH = os.path.join(RC_DEFAULT_DIR, u'streamlink-cursesrc')
 DB_DEFAULT_DIR  = (os.environ.get('XDG_DATA_HOME') or
-                  os.path.expanduser(u'~/.local/share/livestreamer-curses'))
-DB_DEFAULT_PATH = os.path.join(DB_DEFAULT_DIR, u'livestreamer-curses.db')
+                  os.path.expanduser(u'~/.local/share/streamlink-curses'))
+DB_DEFAULT_PATH = os.path.join(DB_DEFAULT_DIR, u'streamlink-curses.db')
 
 INDICATORS = [
         '  x  ', # offline

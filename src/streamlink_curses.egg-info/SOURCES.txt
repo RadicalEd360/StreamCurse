@@ -1,0 +1,14 @@
+README.rst
+setup.cfg
+setup.py
+src/streamlink_curses/__init__.py
+src/streamlink_curses/config.py
+src/streamlink_curses/main.py
+src/streamlink_curses/poller.py
+src/streamlink_curses/streamlist.py
+src/streamlink_curses.egg-info/PKG-INFO
+src/streamlink_curses.egg-info/SOURCES.txt
+src/streamlink_curses.egg-info/dependency_links.txt
+src/streamlink_curses.egg-info/entry_points.txt
+src/streamlink_curses.egg-info/requires.txt
+src/streamlink_curses.egg-info/top_level.txt

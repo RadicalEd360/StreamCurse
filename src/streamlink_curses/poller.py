@@ -1,13 +1,13 @@
-from streamlink import Streamlink as Livestreamer
+from streamlink import Streamlink
 
 class Poller(object):
 
     def __init__(self):
-        self.livestreamer = Livestreamer()
+        self.streamlink = Streamlink()
 
     def _check_stream(self, url):
         try:
-            plugin = self.livestreamer.resolve_url(url)
+            plugin = self.streamlink.resolve_url(url)
             avail_streams = plugin.get_streams()
             if avail_streams:
                 return 1

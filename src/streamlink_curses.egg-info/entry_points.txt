@@ -1,0 +1,3 @@
+[console_scripts]
+streamlink-curses = streamlink_curses.main:main
+

@@ -22,7 +22,7 @@ if PY3:
 else:
     import Queue as queue
 
-PROG_STRING    = 'livestreamer-curses'
+PROG_STRING    = 'streamlink-curses'
 TITLE_STRING   = 'v{{0}} with Streamlink v{1}'.format(PROG_STRING, streamlink.__version__)
 
 ID_FIELD_WIDTH   = 6
@@ -144,7 +144,7 @@ class StreamList(object):
             f = shelve.open(filename, 'c')
         except Exception:
             raise ShelveError(
-                'Database could not be opened, another livestreamer-curses instance might be already running. '
+                'Database could not be opened, another streamlink-curses instance might be already running. '
                 'Please note that a database created with Python 2.x cannot be used with Python 3.x and vice versa.'
             )
 

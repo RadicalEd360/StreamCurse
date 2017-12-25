@@ -1,0 +1,17 @@
+Metadata-Version: 1.1
+Name: streamlink-curses
+Version: 1
+Summary: streamlink-curses is a curses frontend to streamlink
+Home-page: http://github.com/gapato/livestreamer-curses
+Author: Gapato
+Author-email: g@oknaj.eu
+License: MIT
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Classifier: Environment :: Console :: Curses
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Topic :: Utilities
