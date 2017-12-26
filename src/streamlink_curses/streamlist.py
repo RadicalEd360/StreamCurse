@@ -665,6 +665,8 @@ class StreamList(object):
 
         done_queue   = queue.Queue()
 
+        self.streamlink.set_plugin_option('twitch', 'disable_hosting', True)
+
         def check_stream_managed(args):
             url, queue = args
             status = self._check_stream(url)
