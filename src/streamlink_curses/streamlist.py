@@ -25,10 +25,10 @@ else:
 PROG_STRING    = 'streamlink-curses'
 TITLE_STRING   = 'v{{0}} with Streamlink v{1}'.format(PROG_STRING, streamlink.__version__)
 
-ID_FIELD_WIDTH   = 6
-NAME_FIELD_WIDTH = 22
-RES_FIELD_WIDTH  = 12
-VIEWS_FIELD_WIDTH = 7
+ID_FIELD_WIDTH   = 4
+NAME_FIELD_WIDTH = 20
+RES_FIELD_WIDTH  = 7
+VIEWS_FIELD_WIDTH = 4
 PLAYING_FIELD_OFFSET = ID_FIELD_WIDTH + NAME_FIELD_WIDTH + RES_FIELD_WIDTH + VIEWS_FIELD_WIDTH + 6
 
 class QueueFull(Exception): pass
@@ -216,16 +216,32 @@ class StreamList(object):
 
     def init(self, s):
         """ Initialize the text interface """
-#edward - makes transparrent
-        if curses.has_colors():
+        if curses.has_colors(): ###### themable interface
+            curses.start_color()
             curses.use_default_colors()
-            #for i in range(0, curses.COLORS):
-            #   curses.init_pair(i, i, 4)
 
-		# colors: 0:black, 1:red, 2:green, 3:yellow, 4:blue, 5:magenta, 6:cyan, and 7:white
-        curses.start_color()
-        curses.init_pair(1, 2, 1 ) # title
-        curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_CYAN ) # Header
+            colorkeys = {
+                           'BLACK'  : curses.COLOR_BLACK,
+                           'RED'    : curses.COLOR_RED,
+                           'GREEN'  : curses.COLOR_GREEN,
+                           'YELLOW' : curses.COLOR_YELLOW,
+                           'BLUE'   : curses.COLOR_BLUE,
+                           'MAGENTA': curses.COLOR_MAGENTA,
+                           'CYAN'   : curses.COLOR_CYAN,
+                           'WHITE'  : curses.COLOR_WHITE
+                         }
+
+            title_bar  = [ colorkeys.get(self.config.TITLE_COLOR[0].upper()),  colorkeys.get(self.config.TITLE_COLOR[1].upper())  ]
+            selectbar  = [ colorkeys.get(self.config.SELECT_COLOR[0].upper()), colorkeys.get(self.config.SELECT_COLOR[1].upper()) ]
+            headerbar  = [ colorkeys.get(self.config.HEADER_COLOR[0].upper()), colorkeys.get(self.config.HEADER_COLOR[1].upper()) ]
+            footerbar  = [ colorkeys.get(self.config.FOOTER_COLOR[0].upper()), colorkeys.get(self.config.FOOTER_COLOR[1].upper()) ]
+            statusbar  = [ colorkeys.get(self.config.STATUS_COLOR[0].upper()), colorkeys.get(self.config.STATUS_COLOR[1].upper()) ]
+
+            curses.init_pair(1, title_bar[0], title_bar[1] ) # Title
+            curses.init_pair(2, headerbar[0], headerbar[1] ) # Header
+            curses.init_pair(3, footerbar[0], footerbar[1] ) # Footer
+            curses.init_pair(4, selectbar[0], selectbar[1] ) # Selector
+            curses.init_pair(5, statusbar[0], statusbar[1] ) # Status
 
         # Hide cursor
         curses.curs_set(0)
@@ -398,20 +414,29 @@ class StreamList(object):
     def set_title(self, msg):
         """ Set first header line text """
         self.s.move(0, 0)
-        self.overwrite_line(msg, curses.A_REVERSE)
+				# title color
+        if curses.has_colors():
+            self.overwrite_line(msg, curses.color_pair(1))
+        else:
+            self.overwrite_line(msg, curses.A_REVERSE)
 
     def set_header(self, msg):
         """ Set second head line text """
         self.s.move(1, 0)
-        self.overwrite_line(msg, attr=curses.color_pair(2))
+				# header colors
+        if curses.has_colors():
+            self.overwrite_line(msg, attr=curses.color_pair(2))
+        else:
+            self.overwrite_line(msg, curses.A_UNDERLINE)
 
-    def set_footer(self, msg, reverse=True):
+    def set_footer(self, msg):
         """ Set first footer line text """
         self.s.move(self.max_y-1, 0)
-        if reverse:
-            self.overwrite_line(msg, attr=curses.A_REVERSE)
+				# footer colors
+        if curses.has_colors():
+            self.overwrite_line(msg, attr=curses.color_pair(3))
         else:
-            self.overwrite_line(msg, attr=curses.A_NORMAL)
+            self.overwrite_line(msg, attr=curses.A_REVERSE)
 
     def clear_footer(self):
         self.s.move(self.max_y-1, 0)
@@ -478,7 +503,11 @@ class StreamList(object):
         self.offsets['streams'] = 0
         pad.move(start_row, 0)
         if not self.no_stream_shown:
-            pad.chgat(curses.A_REVERSE)
+            #pad.chgat(curses.A_NORMAL) # setting this to normal makes bar not appear at first :D
+            if curses.has_colors():
+                pad.chgat(curses.color_pair(4)) # default bar color
+            else:
+                pad.chgat(curses.A_NORMAL) # setting this to normal makes bar not appear at first :D
         self.pads['streams'] = pad
 
     def show_streams(self):
@@ -583,7 +612,7 @@ class StreamList(object):
         self.offsets[pad_name] = new_offset
         pad.move(new_row, 0)
         if pad_name in cursor_line:
-            pad.chgat(curses.A_REVERSE)
+            pad.chgat(curses.color_pair(4)) # selector color
         if pad_name == 'streams':
             self.redraw_stream_footer()
         if refresh:
@@ -610,8 +639,8 @@ class StreamList(object):
         pad = self.pads['streams']
         pad.move(row, 0)
         pad.clrtoeol()
-        pad.addstr(row, 0, self.format_stream_line(s), curses.A_REVERSE)
-        pad.chgat(curses.A_REVERSE)
+        pad.addstr(row, 0, self.format_stream_line(s), curses.color_pair(4))
+        pad.chgat(curses.color_pair(4))
         pad.move(row, 0)
         self.refresh_current_pad()
 
@@ -621,7 +650,11 @@ class StreamList(object):
 
     def redraw_status(self):
         self.s.move(self.max_y, 0)
-        self.overwrite_line(self.status[:self.max_x], curses.A_NORMAL)
+				# status color
+        if curses.has_colors():
+            self.overwrite_line(self.status[:self.max_x], curses.color_pair(5))
+        else:
+            self.overwrite_line(self.status[:self.max_x], curses.A_NORMAL)
         self.s.refresh()
 
     def redraw_stream_footer(self):

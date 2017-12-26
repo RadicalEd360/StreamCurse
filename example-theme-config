@@ -1,0 +1,10 @@
+# goes in streamlink-cursesrc file
+# theme colors = black, red, green, yellow, blue, magenta, cyan, white
+# must be in this format
+# your_option = ['text','background']
+
+TITLE_COLOR  = ['blue','black']
+SELECT_COLOR = ['blue','black']
+HEADER_COLOR = ['white','blue']
+FOOTER_COLOR = ['white','blue']
+STATUS_COLOR = ['blue','black']

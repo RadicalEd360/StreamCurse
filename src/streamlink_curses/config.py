@@ -17,6 +17,14 @@ DB_DEFAULT_DIR  = (os.environ.get('XDG_DATA_HOME') or
                   os.path.expanduser(u'~/.local/share/streamlink-curses'))
 DB_DEFAULT_PATH = os.path.join(DB_DEFAULT_DIR, u'streamlink-curses.db')
 
+# colors - foreground, background
+HEADER_COLOR = ['white', 'red']
+SELECT_COLOR = ['red', 'white']
+TITLE_COLOR  = ['white', 'red']
+FOOTER_COLOR = ['white', 'red']
+STATUS_COLOR = ['white', 'red']
+
+
 INDICATORS = [
         '  x  ', # offline
         ' >>> ', # streaming
