@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: streamlink-curses
-Version: 1
+Version: 0.1
 Summary: streamlink-curses is a curses frontend to streamlink
 Home-page: http://github.com/gapato/livestreamer-curses
 Author: Gapato
