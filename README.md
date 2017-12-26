@@ -9,8 +9,7 @@
 
 ## Screenshots
 
-![alt](https://user-images.githubusercontent.com/7925769/34339583-bd81a3dc-e93b-11e7-9913-f983b06b6df8.png)
-
+![2017-12-25-232911_923x458_scrot](https://user-images.githubusercontent.com/7925769/34347872-496583d8-e9cc-11e7-9479-2ff981182071.png)
 
 ## Changelog
 ### 25-Dec-17
