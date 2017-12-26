@@ -504,7 +504,7 @@ class StreamList(object):
                 self.s.addstr(10, 5, 'Hit \'?\' for help')
         else:
             idf = 'Num'.center(ID_FIELD_WIDTH)
-            name = 'Streamer'.center(NAME_FIELD_WIDTH)
+            name = 'Stream'.center(NAME_FIELD_WIDTH)
             res = 'Res'.center(RES_FIELD_WIDTH)
             views = 'Views'.center(VIEWS_FIELD_WIDTH)
             self.set_header('{0} {1} {2} {3}  Status'.format(idf, name, res, views))
