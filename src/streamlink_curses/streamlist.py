@@ -131,7 +131,6 @@ class StreamList(object):
 
     def __init__(self, filename, config, list_streams=False, init_stream_list=None):
         """ Init and try to load a stream list, nothing about curses yet """
-
         global TITLE_STRING
 
         self.db_was_read = False
@@ -216,32 +215,37 @@ class StreamList(object):
 
     def init(self, s):
         """ Initialize the text interface """
-        if curses.has_colors(): ###### themable interface
+        global colors
+        colors = curses.has_colors()
+        if colors: ###### themable interface
             curses.start_color()
             curses.use_default_colors()
 
-            colorkeys = {
-                           'BLACK'  : curses.COLOR_BLACK,
-                           'RED'    : curses.COLOR_RED,
-                           'GREEN'  : curses.COLOR_GREEN,
-                           'YELLOW' : curses.COLOR_YELLOW,
-                           'BLUE'   : curses.COLOR_BLUE,
-                           'MAGENTA': curses.COLOR_MAGENTA,
-                           'CYAN'   : curses.COLOR_CYAN,
-                           'WHITE'  : curses.COLOR_WHITE
-                         }
+            def getcolor(colr):
+                colorkeys = {
+                               'BLACK'  : curses.COLOR_BLACK,
+                               'RED'    : curses.COLOR_RED,
+                               'GREEN'  : curses.COLOR_GREEN,
+                               'YELLOW' : curses.COLOR_YELLOW,
+                               'BLUE'   : curses.COLOR_BLUE,
+                               'MAGENTA': curses.COLOR_MAGENTA,
+                               'CYAN'   : curses.COLOR_CYAN,
+                               'WHITE'  : curses.COLOR_WHITE
+                            }
 
-            title_bar  = [ colorkeys.get(self.config.TITLE_COLOR[0].upper()),  colorkeys.get(self.config.TITLE_COLOR[1].upper())  ]
-            selectbar  = [ colorkeys.get(self.config.SELECT_COLOR[0].upper()), colorkeys.get(self.config.SELECT_COLOR[1].upper()) ]
-            headerbar  = [ colorkeys.get(self.config.HEADER_COLOR[0].upper()), colorkeys.get(self.config.HEADER_COLOR[1].upper()) ]
-            footerbar  = [ colorkeys.get(self.config.FOOTER_COLOR[0].upper()), colorkeys.get(self.config.FOOTER_COLOR[1].upper()) ]
-            statusbar  = [ colorkeys.get(self.config.STATUS_COLOR[0].upper()), colorkeys.get(self.config.STATUS_COLOR[1].upper()) ]
+                if isinstance(colr, int):
+                    if colr > curses.COLORS:
+                        return(-1)
+                    else:
+                        return(colr)
+                else:
+                    return(colorkeys.get(colr.upper(), -1))
 
-            curses.init_pair(1, title_bar[0], title_bar[1] ) # Title
-            curses.init_pair(2, headerbar[0], headerbar[1] ) # Header
-            curses.init_pair(3, footerbar[0], footerbar[1] ) # Footer
-            curses.init_pair(4, selectbar[0], selectbar[1] ) # Selector
-            curses.init_pair(5, statusbar[0], statusbar[1] ) # Status
+            elelist = [ self.config.TITLE_COLOR, self.config.HEADER_COLOR, self.config.FOOTER_COLOR, self.config.SELECT_COLOR, self.config.STATUS_COLOR ]
+            eleid = [ 1, 2, 3, 4, 5 ]
+
+            for e, x in zip(elelist, eleid):
+                curses.init_pair(x, getcolor(e[0]), getcolor(e[1]))
 
         # Hide cursor
         curses.curs_set(0)
@@ -415,7 +419,7 @@ class StreamList(object):
         """ Set first header line text """
         self.s.move(0, 0)
 				# title color
-        if curses.has_colors():
+        if colors:
             self.overwrite_line(msg, curses.color_pair(1))
         else:
             self.overwrite_line(msg, curses.A_REVERSE)
@@ -424,7 +428,7 @@ class StreamList(object):
         """ Set second head line text """
         self.s.move(1, 0)
 				# header colors
-        if curses.has_colors():
+        if colors:
             self.overwrite_line(msg, attr=curses.color_pair(2))
         else:
             self.overwrite_line(msg, curses.A_UNDERLINE)
@@ -433,7 +437,7 @@ class StreamList(object):
         """ Set first footer line text """
         self.s.move(self.max_y-1, 0)
 				# footer colors
-        if curses.has_colors():
+        if colors:
             self.overwrite_line(msg, attr=curses.color_pair(3))
         else:
             self.overwrite_line(msg, attr=curses.A_REVERSE)
@@ -504,7 +508,7 @@ class StreamList(object):
         pad.move(start_row, 0)
         if not self.no_stream_shown:
             #pad.chgat(curses.A_NORMAL) # setting this to normal makes bar not appear at first :D
-            if curses.has_colors():
+            if colors:
                 pad.chgat(curses.color_pair(4)) # default bar color
             else:
                 pad.chgat(curses.A_NORMAL) # setting this to normal makes bar not appear at first :D
@@ -651,7 +655,7 @@ class StreamList(object):
     def redraw_status(self):
         self.s.move(self.max_y, 0)
 				# status color
-        if curses.has_colors():
+        if colors:
             self.overwrite_line(self.status[:self.max_x], curses.color_pair(5))
         else:
             self.overwrite_line(self.status[:self.max_x], curses.A_NORMAL)

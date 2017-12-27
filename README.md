@@ -20,3 +20,6 @@
 - added additional curses color support, black background is now transparrent and interface has a blue bar
 - hosted twitch streams now show up as offline
 - added theming support, you can now set your own colors for the interface within streamlink-cursesrc file
+
+### 26-Dec-17
+- themes now support 255 colors

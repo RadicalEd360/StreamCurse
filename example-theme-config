@@ -1,7 +1,18 @@
 # goes in streamlink-cursesrc file
-# theme colors = black, red, green, yellow, blue, magenta, cyan, white
-# must be in this format
+
+# string colors you can use:
+#	 black, red, green, yellow, blue, magenta, cyan, white
+
+# you can also set a number as your color
+
+# string colors must be quoted
+# integer colors must be without quotes
+
 # your_option = ['text','background']
+# TITLE_COLOR = [2,3]
+# TITLE_COLOR = ['green','yellow']
+
+# for a list of colors your terminal can support run colortest.py
 
 TITLE_COLOR  = ['blue','black']
 SELECT_COLOR = ['blue','black']
