@@ -1,0 +1,46 @@
+
+NORMAL MODE
+
+  a     : add stream to current database
+  d     : delete stream from current database
+  n     : change selected streams name
+  u     : change selected streams URL
+  c     : cycle through the databases
+  C     : create a new database
+
+TWITCH MODE
+
+  u     : change current username
+  w     : resync
+
+ALL MODES
+
+  Enter : start stream
+  s     : stop stream
+  l     : show current command
+  L     : cycle commands
+  m     : cycle modes
+
+NAVIGATION
+
+  j/up  : up one line
+  k/down: down one line
+  f     : filter streams
+  F     : clear filter
+  o     : toggle offline streams
+  O     : check for online streams
+  gg    : go to top
+  G     : go to bottom
+  h/?   : show this help
+  q/Q   : exit
+
+ISSUES, FEATURES, OR REQUESTS?
+
+  you can reach me here, im always happy to help!
+  https://github.com/RadicalEd360/streamlink-curses
+
+  if you like this program please stop by and let me know!
+
+  Many Thanks   -Edward
+
+

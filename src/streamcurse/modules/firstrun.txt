@@ -1,0 +1,14 @@
+
+
+NORMAL MODE: You do not have any streams in this database yet.
+TWITCH MODE: You need to sync with a valid username
+
+	you can set a default username in config.ini
+	if username is set to None then you will be asked for one when syncing
+
+heres some options:
+  a/A : add a stream to the current database
+   c  : to cycle through your databases
+   C  : to create a new database
+   w  : to sync twitch mode
+
