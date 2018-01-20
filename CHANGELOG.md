@@ -17,5 +17,5 @@
 - twitch mode uses api calls to get info about the streamers username follows up to 100 streams
 - normal mode can create, edit, delete, and switch databases on the fly
 - twitch mode only requires a username to lookup their follows
-- commands can be anything written in the config file, with __urlhere__ as an optional placement for url, otherwise url is appended to end of command
-- removed support for switching resolutions, you can set a resolution within your cmd e.g. streamlink __urlhere__ 720p
+- commands can be anything written in the config file
+- removed support for switching resolutions, you can set a resolution within your cmd
