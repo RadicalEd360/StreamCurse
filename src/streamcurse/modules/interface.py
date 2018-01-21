@@ -268,11 +268,11 @@ class InterFace:
 				self.currentpad = 'main'
 				self.refreshall()
 			#----------- navigation
-			if char == curses.KEY_UP or char == ord('j') or char == ord('J'):
+			if char == curses.KEY_UP or char == ord('k') or char == ord('K'):
 				self.setselect(self.startpos - 1, page=True)
 				self.refreshbody()
 
-			if char == curses.KEY_DOWN or char == ord('k') or char == ord('K'):
+			if char == curses.KEY_DOWN or char == ord('j') or char == ord('J'):
 				self.setselect(self.startpos + 1, page=True)
 				self.refreshbody()
 			return
@@ -281,11 +281,11 @@ class InterFace:
 			if char == curses.KEY_EXIT or char == ord('q') or char == ord('Q'):
 				return -1
 			#--------------- navigation
-			if char == curses.KEY_UP or char == ord('j') or char == ord('J'):
+			if char == curses.KEY_UP or char == ord('k') or char == ord('K'):
 				self.setselect(self.selection - 1)
 				self.refreshbody()
 
-			if char == curses.KEY_DOWN or char == ord('k') or char == ord('K'):
+			if char == curses.KEY_DOWN or char == ord('j') or char == ord('J'):
 				self.setselect(self.selection + 1)
 				self.refreshbody()
 

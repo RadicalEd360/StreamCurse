@@ -8,7 +8,13 @@ class Conf:
 	c = configparser.ConfigParser()
 
 	# some globals
-	default_dir=os.path.expanduser('~/.streamcurse')
+	if 'XDG_CONFIG_HOME' in os.environ:
+		confdir = os.environ['XDG_CONFIG_HOME']
+	elif 'CONFIG' in os.environ:
+		confdir = os.environ['CONFIG']
+	else:
+		confdir = os.path.join(os.path.expanduser('~'), '.config')
+	default_dir=os.path.join(confdir, 'streamcurse')
 	database_dir=os.path.join(default_dir, 'databases')
 	default_cfg=os.path.join(default_dir, 'config.ini')
 	default_db='default.db'
