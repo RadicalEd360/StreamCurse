@@ -167,7 +167,7 @@ class InterFace:
 			self.footer.addstr(0, int(int(self.maxX - len(msg))/2), msg)
 
 		if self.mode == 'firstrun' or self.currentpad == 'help':
-			msg='Stream-Curses '+self.version+' by RadicalEd'
+			msg='StreamCurse '+self.version+' by RadicalEd'
 			self.header.addstr(0, int(int(self.maxX - len(msg))/2), msg)
 
 		if self.mode == 'firstrun':
