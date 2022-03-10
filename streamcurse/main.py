@@ -22,7 +22,7 @@ from .modules import databases as db
 from .modules.interface import InterFace
 
 def main():
-	parser = argparse.ArgumentParser(description='Streamlink Curses frontend.')
+	parser = argparse.ArgumentParser(description='StreamCurse, flexible stream launcher')
 
 	try:
 		arg_type = unicode

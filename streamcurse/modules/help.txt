@@ -3,17 +3,12 @@ NORMAL MODE
 
   a     : add stream to current database
   d     : delete stream from current database
-  n     : change selected streams name
-  u     : change selected streams URL
-  c     : cycle through the databases
+  N     : change selected streams name
+  U     : change selected streams URL
   C     : create a new database
+  c     : cycle through databases
 
-TWITCH MODE
-
-  u     : change current username
-  w     : resync
-
-ALL MODES
+ALL MODES (currently only normal mode available)
 
   Enter : start stream
   s     : stop stream
@@ -37,7 +32,7 @@ NAVIGATION
 ISSUES, FEATURES, OR REQUESTS?
 
   you can reach me here, im always happy to help!
-  https://github.com/RadicalEd360/streamlink-curses
+  https://github.com/RadicalEd360/streamcurse
 
   if you like this program please stop by and let me know!
 

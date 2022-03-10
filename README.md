@@ -1,9 +1,10 @@
 # StreamCurse
-curses stream launcher.
-- switch databases, launchers, and modes on the fly.
-- easy to use configfile
+curses stream launcher inspired by Gapato's livestreamer-curses
+- switch databases and launcher cmdlets on the fly.
+- easy to use configfile (ini)
 - themable interface, set your colors to your liking within the config file
-- sync your streams with your twitch username in twitch mode
+- includes a script to help find the right color code for theming
+- checks to see which streams are currently online using streamlink
 
 ## Dependancies:
     streamlink
@@ -16,6 +17,3 @@ or if you wish to modify the code and develop new features you can simulate an i
 installing anything, allowing you to run the code everytime you change it
 
     python3 setup.py develop
-
-## ScreenShots
-

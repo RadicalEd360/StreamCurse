@@ -70,13 +70,14 @@ class Conf:
 				'cmd2'        :'streamlink __urlhere__ best',
 				'cmd3'        :'cvlc',
 				}
-		self.c['TWITCH'] = {
-				'username'    :'None'
-				}
+		#self.c['TWITCH'] = {
+		#		'username'    :'None'
+		#		}
 		self.c['INDICATORS'] = {
 				'offline'     :'---',
 				'playing'     :'[>]',
 				'online'      :'>>>',
+				'error'       :'!!!',
 				}
 
 		# write the config file

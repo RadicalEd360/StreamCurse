@@ -1,0 +1,9 @@
+
+
+INFORMATION: You do not have any streams in this database yet.
+
+Here are some options:
+  a/A : add a stream to the current database
+  c/n : to cycle through your databases
+   C  : to create a new database
+

@@ -10,7 +10,7 @@ import queue
 import os
 
 from . import databases as db
-from . import services
+#from . import services
 from . import player
 from . import config
 
@@ -42,7 +42,7 @@ class InterFace:
 		self.dbfile = dbfile
 #-----------------------------------------------------------------configuration
 		self.dbpath = conf['DIRECTORY']['database_dir']
-		self.twitch_username = conf['TWITCH']['username']
+		#self.twitch_username = conf['TWITCH']['username']
 
 		cmd_list = []
 		for cmd in conf['COMMANDS']:
@@ -51,10 +51,10 @@ class InterFace:
 		self.cmd_index = 0
 		self.cmd = self.cmd_list[self.cmd_index]
 #-----------------------------------------------------------------------objects
-		self.twitch = services.Twitch()
+		#self.twitch = services.Twitch()
 		self.streamlink = streamlink.Streamlink()
 		self.q = player.ProcessList(player.StreamPlayer().play)
-#-------------------------------------------------------------establich history
+#-------------------------------------------------------------establish history
 		self.currentpad = 'main'
 		self.prevpad = self.currentpad
 		self.prevdb = self.dbfile
@@ -97,7 +97,7 @@ class InterFace:
 
 	# non normal mode only
 	def loadcache(self):
-		self.dbfile = '/tmp/sc-cache-twitch'
+		self.dbfile = '/tmp/sc-cache'
 		if not os.path.exists(self.dbfile):
 			db.create(self.dbfile)
 			data = self.twitch.getfollows(self.twitch_username)
@@ -107,12 +107,12 @@ class InterFace:
 		self.filter_streams()
 		if self.database == []:
 			self.mode = 'firstrun'
-		else:
-			self.mode = 'twitch'
+		#else:
+			#self.mode = 'twitch'
 
 	# non normal modes only
 	def clearcache(self):
-		self.dbfile = '/tmp/sc-cache-twitch'
+		self.dbfile = '/tmp/sc-cache'
 		if os.path.exists(self.dbfile):
 			os.remove(self.dbfile)
 		else:
@@ -127,8 +127,8 @@ class InterFace:
 		if self.nodata == True:
 			if self.mode == 'normal':
 				self.loaddata()
-			if self.mode == 'twitch':
-				self.loadcache()
+			#if self.mode == 'twitch':
+			#	self.loadcache()
 		else:
 			self.filter_streams()
 #----------------------------------------------------------------------------------------
@@ -149,11 +149,11 @@ class InterFace:
 			self.header.erase()
 			self.title.erase()
 			self.footer.erase()
-			if self.mode == 'twitch':
-				self.header.addstr(0, 0, ' No.')
-				self.header.addstr(0, 5 + 1, 'Streamer')
-				self.header.addstr(0, 25 + 3, 'Game')
-				self.header.addstr(0, self.bodyMaxX - 10, 'Status')
+			#if self.mode == 'twitch':
+			#	self.header.addstr(0, 0, ' No.')
+			#	self.header.addstr(0, 5 + 1, 'Streamer')
+			#	self.header.addstr(0, 25 + 3, 'Game')
+			#	self.header.addstr(0, self.bodyMaxX - 10, 'Status')
 			if self.mode == 'normal':
 				self.header.addstr(0, 0, ' No.')
 				self.header.addstr(0, 5 + 1, 'Name')
@@ -171,7 +171,7 @@ class InterFace:
 			self.header.addstr(0, int(int(self.maxX - len(msg))/2), msg)
 
 		if self.mode == 'firstrun':
-			msg='https://github.com/RadicalEd360/streamlink-curses'
+			msg='https://github.com/RadicalEd360/streamcurse'
 			self.footer.addstr(0, int(int(self.maxX - len(msg))/2), msg)
 			msg='DATABASE: {0}'.format(self.dbname)
 			self.title.addstr(0, int(int(self.maxX - len(msg))/2), msg)
@@ -181,11 +181,14 @@ class InterFace:
 				self.title.addstr('MODE: {0} | FILTER: {1} | DATABASE: {2}'.format(self.mode, 'None' if self.filter == '' else self.filter, self.dbname))
 			except:
 				pass
-		if not self.mode == 'firstrun' and self.mode == 'twitch':
-			try:
-				self.title.addstr('MODE: {0} | FILTER: {1} | USERNAME: {2}'.format(self.mode, 'None' if self.filter == '' else self.filter, self.twitch_username))
-			except:
-				pass
+		#if not self.mode == 'firstrun' and self.mode == 'twitch':
+		#	try:
+		#		self.title.addstr('MODE: {0} | FILTER: {1} | USERNAME: {2}'.format(self.mode, 'None' if self.filter == '' else self.filter, self.twitch_username))
+		#	except:
+		#		pass
+
+
+
 
 	""" theming """
 	def setcolors(self):
@@ -238,6 +241,9 @@ class InterFace:
 		self.header.bkgd(self.header_color)
 		self.footer.bkgd(self.footer_color)
 		self.status.bkgd(self.status_color)
+	
+	
+	
 	""" main event loop """
 	def run(self):
 		while True:
@@ -311,13 +317,13 @@ class InterFace:
 			#--------------- modes
 			# normal only
 			if self.mode == 'normal' or self.mode == 'firstrun':
-				if char == ord('a') or char == ord('A'):
+				if char == ord('a') or char == ord('A') or char == ord('I') or char == ord('i'):
 					self.add_stream()
 					if self.database != [] and self.mode == 'firstrun':
 						self.mode = 'normal'
 						self.nodata = False
 					self.refreshall()
-				if char == ord('c'):
+				if char == ord('c') or char == ord('n'):
 					if len(self.database_list) <=1:
 						return
 					self.cycledb()
@@ -339,29 +345,29 @@ class InterFace:
 				if char == ord('d'):
 					self.del_stream()
 					self.refreshall()
-				if char == ord('n') or char == ord('N'):
+				if char == ord('N'):
 					self.edit_stream('name')
 					self.refreshall()
 				if char == ord('u') or char == ord('U'):
 					self.edit_stream('url')
 					self.refreshall()
 			# twitch mode
-			if self.mode == 'twitch' or self.mode == 'firstrun':
-				if char == ord('w'):
-					self.show_offline_streams = 1
-					self.clearcache()
-					if self.twitch_username == 'None':
-						self.get_username()
-						if self.twitch_username == 'None':
-							self.refreshall()
-							return
-					self.msgbox('Syncing {0}...'.format(self.twitch_username))
-					self.loadcache()
-					self.refreshall()
+			#if self.mode == 'twitch' or self.mode == 'firstrun':
+				#if char == ord('w'):
+				#	self.show_offline_streams = 1
+				#	self.clearcache()
+				#	if self.twitch_username == 'None':
+				#		self.get_username()
+				#		if self.twitch_username == 'None':
+				#			self.refreshall()
+				#			return
+				#	self.msgbox('Syncing {0}...'.format(self.twitch_username))
+				#	self.loadcache()
+				#	self.refreshall()
 
-				if char == ord('u'):
-					self.get_username()
-					self.refreshall()
+				#if char == ord('u'):
+				#	self.get_username()
+				#	self.refreshall()
 			# all modes
 			if self.mode == 'normal' or self.mode == 'twitch':
 				if char == curses.KEY_ENTER or char == 10 or char == 13:
@@ -384,13 +390,13 @@ class InterFace:
 					self.filter_streams()
 					self.refreshall()
 				if char == ord('O'):
-					self.show_offline_streams = 0
+					#self.show_offline_streams = 0
 					self.check_online_streams()
 					self.refreshall()
 
-			if char == ord('m') or char == ord('M'):
-				self.cyclemode()
-				self.refreshall()
+			#if char == ord('m') or char == ord('M'):
+			#	self.cyclemode()
+			#	self.refreshall()
 			return
 		"""-----------------------------------------------------------"""
 	""" ----------------------------------------------------------------------- Interface calls """
@@ -465,11 +471,11 @@ class InterFace:
 					# Streamer column
 					self.body.addstr(idx, 5, select['name'][0:19], col)
 					# Twitch Game column
-					if self.mode == 'twitch' and select['game']:
-						try:
-							self.body.addstr(idx, 25, select['game'], col)
-						except:
-							pass
+					#if self.mode == 'twitch' and select['game']:
+					#	try:
+					#		self.body.addstr(idx, 25, select['game'], col)
+					#	except:
+					#		pass
 					# Online column
 					if not self.mode == 'firstrun':
 						if select['online'] is 0:
@@ -478,6 +484,8 @@ class InterFace:
 							ind = self.conf['INDICATORS']['online']
 						if select['online'] is 2:
 							ind = self.conf['INDICATORS']['playing']
+						if select['online'] is 3:
+							ind = self.conf['INDICATORS']['error']
 						self.body.addstr(idx, self.bodyMaxX - 10, str(ind), col)
 			except:
 				break
@@ -555,10 +563,10 @@ class InterFace:
 				self.database_list = [f for f in os.listdir(self.dbpath) if os.path.isfile(os.path.join(self.dbpath, f))]
 				self.cycledb()
 
-	def cyclemode(self):
-		self.mode = 'twitch' if (self.mode == 'normal') else 'normal'
-		self.nodata = True
-		self.show_offline_streams = 1
+	#def cyclemode(self):
+	#	self.mode = 'twitch' if (self.mode == 'normal') else 'normal'
+	#	self.nodata = True
+	#	self.show_offline_streams = 1
 
 	def cycledb(self):
 		self.dbnumber += 1
@@ -674,19 +682,21 @@ class InterFace:
 				self.filtered_streams.append(stream)
                       # End of Filtering
 
-	def get_username(self):
-		self.twitch_username = self.prompt_input('Twitch Username: ')
-		if self.twitch_username == '':
-			self.twitch_username = 'None'
+	#def get_username(self):
+	#	self.twitch_username = self.prompt_input('Twitch Username: ')
+	#	if self.twitch_username == '':
+	#		self.twitch_username = 'None'
 
 	def _check_stream(self, url): # from the original streamlink-curses
 		try:
-			plugin = self.streamlink.resolve_url(url)
-			avail_streams = plugin.get_streams()
+			#plugin = self.streamlink.resolve_url(url)
+			#avail_streams = plugin.get_streams()
+			avail_streams = self.streamlink.streams(url)
 			if avail_streams:
 				return 1
 			return 0
-		except:
+		except Exception as e:
+			#raise(e)
 			return 3
 	def check_online_streams(self): # from the original streamlink-curses
 		self.status.addstr('Checking online streams...')

@@ -17,5 +17,14 @@
 - twitch mode uses api calls to get info about the streamers username follows up to 100 streams
 - normal mode can create, edit, delete, and switch databases on the fly
 - twitch mode only requires a username to lookup their follows
-- commands can be anything written in the config file
+- launch commands can be anything written in the config file
 - removed support for switching resolutions, you can set a resolution within your cmd
+
+### 10-Mar-22
+- dusted this off
+- updated setup.py and folder structure to work with newer version of setuptools
+- disabled twitch mode for the time being as twitch v3 api has been deprecated
+- changed some text elements
+- added some alternative keybindings
+- updated interface.py streamlink code to work with newer versions
+- added an indicator to show streams that error out when checking if online (i.e. no plugins found)
