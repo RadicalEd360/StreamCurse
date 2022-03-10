@@ -3,7 +3,7 @@ import configparser
 
 # c = config.Conf()
 class Conf:
-	version='1.0'
+	version='1.1'
 	# our config object
 	c = configparser.ConfigParser()
 

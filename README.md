@@ -1,19 +1,18 @@
 # StreamCurse
-curses stream launcher inspired by Gapato's livestreamer-curses
+A curses stream launcher inspired by Gapato's livestreamer-curses
 - switch databases and launcher cmdlets on the fly.
 - easy to use configfile (ini)
 - themable interface, set your colors to your liking within the config file
 - includes a script to help find the right color code for theming
-- checks to see which streams are currently online using streamlink
+- uses streamlink to check if streams are live
 
-## Dependancies:
-    streamlink
+**Requires _streamlink_**
 
 ## Installing
 
     python3 setup.py install
 
-or if you wish to modify the code and develop new features you can simulate an install without
-installing anything, allowing you to run the code everytime you change it
+Or if your a developer, you can edit and run the code live from source with a symlink install like so
 
     python3 setup.py develop
+

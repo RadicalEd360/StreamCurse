@@ -171,7 +171,7 @@ class InterFace:
 			self.header.addstr(0, int(int(self.maxX - len(msg))/2), msg)
 
 		if self.mode == 'firstrun':
-			msg='https://github.com/RadicalEd360/streamcurse'
+			msg='https://github.com/RadicalEd360/StreamCurse'
 			self.footer.addstr(0, int(int(self.maxX - len(msg))/2), msg)
 			msg='DATABASE: {0}'.format(self.dbname)
 			self.title.addstr(0, int(int(self.maxX - len(msg))/2), msg)

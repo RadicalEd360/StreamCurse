@@ -1,14 +1,9 @@
 #!/usr/bin/env python
 
-from setuptools import setup, find_packages
-from os.path import join, dirname, abspath
-from sys import path
-
-srcdir = join(dirname(abspath(__file__)), "src/")
-path.insert(0, srcdir)
+from setuptools import setup
 
 setup(name="streamcurse",
-      version='1.0.1',
+      version='1.1',
       description="streamcurse is a curses stream launcher, inspired by gapatos livestreamer-curses.",
       url="https://github.com/RadicalEd360/streamcurse",
       author="Radical Edward",
